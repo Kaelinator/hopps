@@ -1,0 +1,31 @@
+{
+  "name": "bunny-burrow",
+  "version": "1.0.0",
+  "description": "Complex data manipulation made easy",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kaelinator/bunny-burrow.git"
+  },
+  "keywords": [
+    "data",
+    "array",
+    "arr",
+    "nest",
+    "obj",
+    "object",
+    "nesting",
+    "insert",
+    "flat",
+    "dimension"
+  ],
+  "author": "Kael Kirk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kaelinator/bunny-burrow/issues"
+  },
+  "homepage": "https://github.com/Kaelinator/bunny-burrow#readme"
+}
