@@ -1,2 +1,2 @@
-# bunny-burrow
+# hopps
 Easily nest arrays and objects
