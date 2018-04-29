@@ -8,6 +8,10 @@ describe('get', () => {
     expect(
       burrow.get('a.b.c', { a: { b: { c: 'hi!' } } })
     ).toEqual('hi!')
+
+    expect(
+      burrow.get('a.b', { a: { b: 10 } })
+    ).toEqual(10)
   })
 
   it('can take an array', () => {
