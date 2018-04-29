@@ -27,6 +27,17 @@ describe('get', () => {
       burrow.get('a.b', {})
     ).toBeUndefined()
   })
+
+  it('returns data unchanged if no template is specified', () => {
+
+    expect(
+      burrow.get(undefined, { a: 1 })
+    ).toEqual({ a: 1 })
+
+    expect(
+      burrow.get(undefined, { a: { b: 1 } })
+    ).toEqual({ a: { b: 1 } })
+  })
 })
 
 describe('set', () => {

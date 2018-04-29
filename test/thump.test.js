@@ -67,7 +67,7 @@ describe('thump.set', () => {
     expect(() => thump.set(true, {}, 'hi!')).toThrow(/boolean/)
   })
 
-  it('throws TypeError when data is unspecified', () => {
+  it('throws TypeError when data is not an object', () => {
     
     const noParam = () => thump.set('a', undefined)
 

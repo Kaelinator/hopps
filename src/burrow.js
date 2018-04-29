@@ -40,6 +40,9 @@ const prepTemplate = (template, throwErrors) => {
   if (typeof template === 'string')
     return template.split('.')
 
+  if (!throwErrors)
+    return []
+
   throw new TypeError('template must be of type string or array, recieved ' + 
     ((template === null) ? null : typeof template) + '.')
 }
