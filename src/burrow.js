@@ -7,7 +7,7 @@ const get = (template, data) => (Array.isArray(template)
 const set = (templateArr, data, value) => templateArr
   .split('.')
   .reduceRight((obj, key, i, arr) => 
-    Object.assign(get(arr.slice(0, i)) || {}, { [key]: obj }), value
+    Object.assign(get(arr.slice(0, i), data) || {}, { [key]: obj }), value
   )
 
 module.exports = {
