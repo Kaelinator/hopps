@@ -13,7 +13,8 @@ const prepTemplate = (template) => {
   if (typeof template === 'string')
     return template.split('.')
 
-  throw new TypeError('template must be of type string or array.')
+  throw new TypeError('template must be of type string or array, recieved ' + 
+    ((template === null) ? null : typeof template) + '.')
 }
 
 const strictlyGet = (obj, key, i, arr) => {
