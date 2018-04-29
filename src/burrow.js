@@ -1,12 +1,14 @@
 
-
-const get = (template, data) => template
-  .split('.')
-  .reduce((obj, key) => obj[key], data)
+const get = (template, data) => (Array.isArray(template) 
+    ? template 
+    : template.split('.'))
+  .reduce((obj, key) => obj && obj[key] || undefined, data)
 
 const set = (templateArr, data, value) => templateArr
   .split('.')
-  .reduceRight((obj, key, i, arr) => Object.assign({}, { [key]: obj }), value)
+  .reduceRight((obj, key, i, arr) => 
+    Object.assign(get(arr.slice(0, i)) || {}, { [key]: obj }), value
+  )
 
 module.exports = {
   get,
