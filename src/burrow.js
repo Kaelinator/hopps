@@ -16,18 +16,22 @@ const strictlyGet = (obj, key, i, arr) => {
 
 const set = (throwErrors) =>
   (template, data, value) => {
+
+    const validTemplate = prepTemplate(template, throwErrors)
   
-    if (throwErrors) {
-      if (typeof data !== 'object' || data === null)
+    if (typeof data !== 'object' || data === null)
+      if (throwErrors)
         throw new TypeError('data must be an object, recieved ' + 
           ((data === null) ? null : typeof data) + '.')
+      else
+        data = {}
 
-      if (!value)
-        throw new TypeError('value must be specified, recieved ' + value + '.')
-    }
+    if (!value && throwErrors)
+      throw new TypeError('value must be specified, recieved ' + value + '.')
 
-    return prepTemplate(template, throwErrors)
-      .reduceRight((obj, key, i, arr) => 
+    return (validTemplate.length === 0)
+      ? data
+      : validTemplate.reduceRight((obj, key, i, arr) => 
         Object.assign(get(false)(arr.slice(0, i), data) || {}, { [key]: obj }), value
       )
   }
