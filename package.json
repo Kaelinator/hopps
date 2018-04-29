@@ -27,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/Kaelinator/bunny-burrow/issues"
   },
-  "homepage": "https://github.com/Kaelinator/bunny-burrow#readme"
+  "homepage": "https://github.com/Kaelinator/bunny-burrow#readme",
+  "devDependencies": {
+    "jest": "^22.4.3"
+  }
 }
