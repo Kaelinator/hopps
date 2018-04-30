@@ -60,7 +60,9 @@ In order to retrieve deeply burrowed data, use `.get`.
  - **template** - template used to target data to be returned
  - **data** - object from which to retrieve the value
 
-`hopps.get('a.b.c', { a: { b: { c: 'hi!' } } })` => `'hi!'`
+```js
+hopps.get('a.b.c', { a: { b: { c: 'hi!' } } }) // => 'hi!'
+```
 
 <details>
   <summary>Edge Cases</summary>
@@ -68,25 +70,25 @@ In order to retrieve deeply burrowed data, use `.get`.
   - <details>
     <summary>If `template` is not of type `string` or `array`</summary>
 
-    **Default:**
-    `data` is returned unchanged.
-    `hopps.get(42, { a: 'carrot' })` => `{ a: 'carrot' }`
+    ```js
+    /* By default, `data` is returned unchanged. */
+    hopps.get(42, { a: 'carrot' }) // => { a: 'carrot' }
 
-    **With `.thump`:**
-    A `TypeError` is thrown.
-    `hopps.thump.get(42, { a: 'carrot' })` => `TypeError: template must be of type string or array, recieved number.`
+    /* With `.thump`, a TypeError is thrown. */
+    hopps.thump.get(42, { a: 'carrot' }) // => TypeError: template must be of type string or array, recieved number.
+    ```
     </details>
 
   - <details>
     <summary>If the address specified by `template` does not exist (this includes non-object `data` values)</summary>
 
-    **Default:**
-    `undefined` is returned.
-    `hopps.get('a.b', { a: { c: 1 } })` => `undefined`
+    ```js
+    /* By default, undefined is returned. */
+    hopps.get('a.b', { a: { c: 1 } }) // => undefined
 
-    **With `.thump`:**
-    A `TypeError` is thrown.
-    `hopps.thump.get('a.b.c', { a: { e: 1 } })` => `TypeError: Address a.b is not an object`
+    /* With `.thump`, a TypeError is thrown. */
+    hopps.thump.get('a.b.c', { a: { e: 1 } }) // => TypeError: Address a.b is not an object
+    ```
     </details>
 </details>
 
@@ -98,7 +100,9 @@ In order to set deeply burrowed data, use `.set`. By default, any data that is i
  - **data** - existing object to insert `value` into
  - **value** - value of the final property in `template`
 
-`hopps.set('a.b.c', { d: 1 }, 'hi!')` => `{ a: { b: { c: 'hi!' } }, d: 1 }`
+```js
+hopps.set('a.b.c', { d: 1 }, 'hi!') // => { a: { b: { c: 'hi!' } }, d: 1 }
+```
 
 <details>
   <summary>Edge cases</summary>
@@ -106,36 +110,36 @@ In order to set deeply burrowed data, use `.set`. By default, any data that is i
   - <details>
     <summary>If `template` is not of type `string` or `array`</summary>
 
-    **Default:**
-    `data` is returned unchanged.
-    `hopps.set(42, { a: 'carrot' }, 'hi!')` => `{ a: 'carrot' }`
+    ```js
+    /* By default, `data` is returned unchanged. */
+    hopps.set(42, { a: 'carrot' }, 'hi!') // => { a: 'carrot' }
 
-    **With `.thump`:**
-    A `TypeError` is thrown.
-    `hopps.thump.set(42, { a: 'carrot' }, 'hi!')` => `TypeError: template must be of type string or array, recieved number.`
+    /* With `.thump`, a TypeError is thrown. */
+    hopps.thump.set(42, { a: 'carrot' }, 'hi!') // => TypeError: template must be of type string or array, recieved number.
+    ```
     </details>
 
   - <details>
     <summary>If `data` is not of type `object`</summary>
 
-    **Default:**
-    An empty object is used in place, so that the insertion may take place.
-    `hopps.set('a.b.c', null, 'hi!')` => `{ a: { b: { c: 'hi!' } } }`
+    ```js
+    /* By default, an empty object is used in place, so that the insertion may take place. */
+    hopps.set('a.b.c', null, 'hi!') // => { a: { b: { c: 'hi!' } } }
 
-    **With `.thump`:**
-    A `TypeError` is thrown.
-    `hopps.thump.set('a.b.c', null, 'hi!')` => `TypeError: data must be an object, recieved null.`
+    /* With `.thump`, a TypeError is thrown. */
+    hopps.thump.set('a.b.c', null, 'hi!') // => TypeError: data must be an object, recieved null.
+    ```
     </details>
 
   - <details>
     <summary>If `value` is undefined</summary>
 
-    **Default:**
-    `value` is set to undefined.
-    `hopps.set('a.b', {}, undefined)` => `{ a: { b: undefined } }`
+    ```js
+    /* By default, `value` is set to undefined. */
+    hopps.set('a.b', {}, undefined) // => { a: { b: undefined } }
 
-    **With `.thump`:**
-    A `TypeError` is thrown.
-    `hopps.thump.set('a.b', {}, undefined)` => `TypeError: value must be specified, recieved undefined.`
+    /* With `.thump`, a TypeError is thrown. */
+    hopps.thump.set('a.b', {}, undefined) // => TypeError: value must be specified, recieved undefined.
+    ```
     </details>
 </details>
