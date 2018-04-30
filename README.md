@@ -37,3 +37,19 @@ hopps.set('a.b.c', { d: 1 }, 'hi!')
 ```
 
 ## API
+
+ * [Modifier Methods](#modifier-methods)
+   * [`.thump`](#thump)
+ * [Invocable Methods](#invocable-methods)
+   * [`.get( template, data )`](#gettemplate-data)
+   * [`.set( template, data, value )`](#settemplate-data-value)
+
+### Modifier Methods
+
+#### `.thump`
+
+### Invocable Methods
+
+#### `.get(template, data)`
+
+#### `.set(template, data, value)`
