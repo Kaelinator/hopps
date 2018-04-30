@@ -75,7 +75,8 @@ hopps.get('a.b.c', { a: { b: { c: 'hi!' } } }) // => 'hi!'
     hopps.get(42, { a: 'carrot' }) // => { a: 'carrot' }
 
     /* With `.thump`, a TypeError is thrown. */
-    hopps.thump.get(42, { a: 'carrot' }) // => TypeError: template must be of type string or array, recieved number.
+    hopps.thump.get(42, { a: 'carrot' })
+    // => TypeError: template must be of type string or array, recieved number.
     ```
     </details>
 
@@ -115,7 +116,8 @@ hopps.set('a.b.c', { d: 1 }, 'hi!') // => { a: { b: { c: 'hi!' } }, d: 1 }
     hopps.set(42, { a: 'carrot' }, 'hi!') // => { a: 'carrot' }
 
     /* With `.thump`, a TypeError is thrown. */
-    hopps.thump.set(42, { a: 'carrot' }, 'hi!') // => TypeError: template must be of type string or array, recieved number.
+    hopps.thump.set(42, { a: 'carrot' }, 'hi!')
+    // => TypeError: template must be of type string or array, recieved number.
     ```
     </details>
 
