@@ -17,6 +17,7 @@ Since 1.0.0 has yet to be released to npm, this package must be downloaded direc
  - Highly versatile
  - As strict as you'd like
  - Built Functionally
+ - Zero dependencies
 
 ## Examples
 
@@ -38,26 +39,89 @@ hopps.set('a.b.c', { d: 1 }, 'hi!')
 
 ## API
 
- * [Modifier Methods](#modifier-methods)
-   * [`.thump`](#thump)
  * [Invocable Methods](#invocable-methods)
    * [`.get(template, data)`](#gettemplate-data)
    * [`.set(template, data, value)`](#settemplate-data-value)
+ * [Modifier Methods](#modifier-methods)
+   * [`.thump`](#thump)
 
 ### Modifier Methods
 
 #### `.thump`
 
+By default, for every [invocable method](#invocable-methods), all error-inducing scenarios' outcomes are predictable by taking a look at each method's `Edge Cases`. Use `.thump` if you would like a descriptive error to be thrown whenever anything goes wrong, instead of having the default behavior curb the error.
+
 ### Invocable Methods
 
 #### `.get(template, data)`
 
-**Example:**
+In order to retrieve deeply burrowed data, use `.get`.
+
+**template** - template used to target data to be returned
+**data** - object from which to retrieve the value
 
 `hopps.get('a.b.c', { a: { b: { c: 'hi!' } } })` => `'hi!'`
 
+##### Edge Cases
+
+If `template` is not of type `string` or `array`:
+
+**Default:**
+`data` is returned unchanged.
+`hopps.get(42, { a: 'carrot' })` => `{ a: 'carrot' }`
+
+**With `.thump`:**
+A `TypeError` is thrown.
+`hopps.thump.get(42, { a: 'carrot' })` => `TypeError: template must be of type string or array, recieved number.`
+
+If the address specified by `template` does not exist (this includes non-object `data` values):
+
+**Default:**
+`undefined` is returned.
+`hopps.get('a.b', { a: { c: 1 } })` => `undefined`
+
+**With `.thump`:**
+A `TypeError` is thrown.
+`hopps.thump.get('a.b.c', { a: { e: 1 } })` => `TypeError: Address a.b is not an object`
+
 #### `.set(template, data, value)`
 
-**Example:**
+In order to set deeply burrowed data, use `.set`. By default, any data that is in the way will be overwritten with the new data.
+
+**template** - template used to target the address of `value`
+**data** - existing object to insert `value` into
+**value** - value of the final property in `template`
 
 `hopps.set('a.b.c', { d: 1 }, 'hi!')` => `{ a: { b: { c: 'hi!' } }, d: 1 }`
+
+##### Edge cases
+
+If `template` is not of type `string` or `array`:
+
+**Default:**
+`data` is returned unchanged.
+`hopps.set(42, { a: 'carrot' }, 'hi!')` => `{ a: 'carrot' }`
+
+**With `.thump`:**
+A `TypeError` is thrown.
+`hopps.thump.set(42, { a: 'carrot' }, 'hi!')` => `TypeError: template must be of type string or array, recieved number.`
+
+If `data` is not of type `object`:
+
+**Default:**
+An empty object is used in place, so that the insertion may take place.
+`hopps.set('a.b.c', null, 'hi!')` => `{ a: { b: { c: 'hi!' } } }`
+
+**With `.thump`:**
+A `TypeError` is thrown.
+`hopps.thump.set('a.b.c', null, 'hi!')` => `TypeError: data must be an object, recieved null.`
+
+If `value` is undefined:
+
+**Default:**
+`value` is set to undefined.
+`hopps.set('a.b', {}, undefined)` => `{ a: { b: undefined } }`
+
+**With `.thump`:**
+A `TypeError` is thrown.
+`hopps.thump.set('a.b', {}, undefined)` => `TypeError: value must be specified, recieved undefined.`
