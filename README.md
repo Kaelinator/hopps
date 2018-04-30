@@ -57,8 +57,8 @@ By default, for every [invocable method](#invocable-methods), all error-inducing
 
 In order to retrieve deeply burrowed data, use `.get`.
 
-**template** - template used to target data to be returned
-**data** - object from which to retrieve the value
+ - **template** - template used to target data to be returned
+ - **data** - object from which to retrieve the value
 
 `hopps.get('a.b.c', { a: { b: { c: 'hi!' } } })` => `'hi!'`
 
@@ -87,16 +87,16 @@ In order to retrieve deeply burrowed data, use `.get`.
     **With `.thump`:**
     A `TypeError` is thrown.
     `hopps.thump.get('a.b.c', { a: { e: 1 } })` => `TypeError: Address a.b is not an object`
-  </details>
+    </details>
 </details>
 
 #### `.set(template, data, value)`
 
 In order to set deeply burrowed data, use `.set`. By default, any data that is in the way will be overwritten with the new data.
 
-**template** - template used to target the address of `value`
-**data** - existing object to insert `value` into
-**value** - value of the final property in `template`
+ - **template** - template used to target the address of `value`
+ - **data** - existing object to insert `value` into
+ - **value** - value of the final property in `template`
 
 `hopps.set('a.b.c', { d: 1 }, 'hi!')` => `{ a: { b: { c: 'hi!' } }, d: 1 }`
 
@@ -113,7 +113,7 @@ In order to set deeply burrowed data, use `.set`. By default, any data that is i
     **With `.thump`:**
     A `TypeError` is thrown.
     `hopps.thump.set(42, { a: 'carrot' }, 'hi!')` => `TypeError: template must be of type string or array, recieved number.`
-  </details>
+    </details>
 
   - <details>
     <summary>If `data` is not of type `object`</summary>
@@ -125,7 +125,7 @@ In order to set deeply burrowed data, use `.set`. By default, any data that is i
     **With `.thump`:**
     A `TypeError` is thrown.
     `hopps.thump.set('a.b.c', null, 'hi!')` => `TypeError: data must be an object, recieved null.`
-  </details>
+    </details>
 
   - <details>
     <summary>If `value` is undefined</summary>
@@ -137,5 +137,5 @@ In order to set deeply burrowed data, use `.set`. By default, any data that is i
     **With `.thump`:**
     A `TypeError` is thrown.
     `hopps.thump.set('a.b', {}, undefined)` => `TypeError: value must be specified, recieved undefined.`
-  </details>
+    </details>
 </details>
