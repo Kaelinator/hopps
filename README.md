@@ -41,8 +41,8 @@ hopps.set('a.b.c', { d: 1 }, 'hi!')
  * [Modifier Methods](#modifier-methods)
    * [`.thump`](#thump)
  * [Invocable Methods](#invocable-methods)
-   * [`.get( template, data )`](#gettemplate-data)
-   * [`.set( template, data, value )`](#settemplate-data-value)
+   * [`.get(template, data)`](#gettemplate-data)
+   * [`.set(template, data, value)`](#settemplate-data-value)
 
 ### Modifier Methods
 
@@ -52,4 +52,12 @@ hopps.set('a.b.c', { d: 1 }, 'hi!')
 
 #### `.get(template, data)`
 
+**Example:**
+
+`hopps.get('a.b.c', { a: { b: { c: 'hi!' } } })` => `'hi!'`
+
 #### `.set(template, data, value)`
+
+**Example:**
+
+`hopps.set('a.b.c', { d: 1 }, 'hi!')` => `{ a: { b: { c: 'hi!' } }, d: 1 }`
