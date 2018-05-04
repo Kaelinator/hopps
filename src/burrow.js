@@ -14,7 +14,7 @@ const strictlyGet = (obj, key, i, arr) => {
   return obj[key]
 }
 
-const set = (throwErrors) =>
+const set = (throwErrors, overwrite) =>
   (template, data, value) => {
 
     const validTemplate = prepTemplate(template, throwErrors)
@@ -53,7 +53,9 @@ const prepTemplate = (template, throwErrors) => {
 
 module.exports = {
   get: get(false),
-  set: set(false),
+  put: set(false, false),
+  set: set(false, true),
   _get: get(true),
-  _set: set(true)
+  _put: set(true, false),
+  _set: set(true, true)
 }

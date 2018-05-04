@@ -87,3 +87,7 @@ describe('set', () => {
     expect(burrow.set('a', 'hi', 1)).toEqual({ a: 1 })
   })
 })
+
+describe('put', () => {
+  
+})
