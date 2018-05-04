@@ -142,10 +142,14 @@ describe('thump.put', () => {
 
   it('throws TypeError when data tree does not match template', () => {
 
-    const badTree = () => thump.put('a.b', { a: 'notAnObject' }, 'placeholder')
+    const badTree = () => thump.put('a.b', { a: 'notAnObject' }, 1)
 
     expect(badTree).toThrow(TypeError)
-    expect(badTree).toThrow('Address a.b is not an object')
+    expect(badTree).toThrow('Address a is not an object')
+
+    expect(
+      () => thump.put('a.b.c', { a: { b: 'notAnObject' } }, 1)
+    ).toThrow('Address a.b is not an object')
   })
 
 })

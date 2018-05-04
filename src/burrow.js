@@ -36,7 +36,10 @@ const set = (throwErrors, overwrite) =>
         const target = get(false)(arr.slice(0, i), data) || {}
 
         if (!overwrite && target.hasOwnProperty(key))
-          return target
+          if (throwErrors && typeof target[key] !== typeof obj)
+            throw new TypeError('Address ' + arr.slice(0, i + 1).join('.') + ' is not an object.')
+          else
+            return target
 
         return Object.assign(target, { [key]: obj })
       }, value)
