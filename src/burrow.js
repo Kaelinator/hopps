@@ -31,9 +31,15 @@ const set = (throwErrors, overwrite) =>
 
     return (validTemplate.length === 0)
       ? data
-      : validTemplate.reduceRight((obj, key, i, arr) => 
-        Object.assign(get(false)(arr.slice(0, i), data) || {}, { [key]: obj }), value
-      )
+      : validTemplate.reduceRight((obj, key, i, arr) => {
+        
+        const target = get(false)(arr.slice(0, i), data) || {}
+
+        if (!overwrite && target.hasOwnProperty(key))
+          return target
+
+        return Object.assign(target, { [key]: obj })
+      }, value)
   }
 
 const prepTemplate = (template, throwErrors) => {
