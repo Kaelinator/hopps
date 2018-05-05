@@ -24,7 +24,7 @@ hopps.put('a.b', data, 'placehold') // => { a: { b: 'occupied' } }
 
 ## Edge cases
 
-**If the structure of `data` conflicts with `tempate`**
+**If the structure of `data` conflicts with `tempate`:**
 ```js
 /* By default, `data` is returned unchanged */
 hopps.put('a.b', { a: 'notAnObject' }, 'placeholder') // => { a: 'notAnObject' }

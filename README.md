@@ -40,17 +40,13 @@ hopps.set('a.b.c', { d: 1 }, 'hi!')
 ## API
 
  * [Invocable Methods](#invocable-methods)
-   * [`.put(template, data, value)](docs/put.md)
-   * [`.get(template, data)`](#gettemplate-data)
-   * [`.set(template, data, value)`](#settemplate-data-value)
+   * [`.get(template, data)`](#gettemplate-data) - _get deeply burrowed data_
+   * [`.set(template, data, value)`](#settemplate-data-value) - _set deeply burrowed data_
+   * [`.put(template, data, value)`](docs/put.md) - _like `.set`, but values are not overwritten_
  * [Modifier Methods](#modifier-methods)
-   * [`.thump`](#thump)
+   * [`.thump`](docs/thump.md) - _throw errors instead of curbing it_
 
 ### Modifier Methods
-
-#### `.thump`
-
-By default, for every [invocable method](#invocable-methods), all error-inducing scenarios' outcomes are predictable by taking a look at each method's `Edge Cases`. Use `.thump` if you would like a descriptive error to be thrown whenever anything goes wrong, instead of having the default behavior curb the error.
 
 ### Invocable Methods
 
