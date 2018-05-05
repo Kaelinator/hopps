@@ -1,5 +1,5 @@
 # `.put(template, data, value)`
-_Like `.set`, but values are not overwritten_
+_like [`.set`](set.md), but values are not overwritten_
 
 ## Description
 In order to not overwrite the value, but place a given value in the value's absence (and necessary values leading up), use `.put`.
@@ -24,7 +24,7 @@ hopps.put('a.b', data, 'placehold') // => { a: { b: 'occupied' } }
 
 ## Edge cases
 
-**If the structure of `data` conflicts with `tempate`**
+**If the structure of `data` conflicts with `tempate`:**
 ```js
 /* By default, `data` is returned unchanged */
 hopps.put('a.b', { a: 'notAnObject' }, 'placeholder') // => { a: 'notAnObject' }
