@@ -40,6 +40,7 @@ hopps.set('a.b.c', { d: 1 }, 'hi!')
 ## API
 
  * [Invocable Methods](#invocable-methods)
+   * [`.put(template, data, value)](docs/put.md)
    * [`.get(template, data)`](#gettemplate-data)
    * [`.set(template, data, value)`](#settemplate-data-value)
  * [Modifier Methods](#modifier-methods)
