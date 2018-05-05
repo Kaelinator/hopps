@@ -40,11 +40,11 @@ hopps.set('a.b.c', { d: 1 }, 'hi!')
 ## API
 
  * [Invocable Methods](#invocable-methods)
-   * [`.get(template, data)`](#gettemplate-data) - _get deeply burrowed data_
+   * [`.get(template, data)`](docs/get.md) - _get deeply burrowed data_
    * [`.set(template, data, value)`](#settemplate-data-value) - _set deeply burrowed data_
    * [`.put(template, data, value)`](docs/put.md) - _like `.set`, but values are not overwritten_
  * [Modifier Methods](#modifier-methods)
-   * [`.thump`](docs/thump.md) - _throw errors instead of curbing it_
+   * [`.thump`](docs/thump.md) - _throw errors instead of curbing them_
 
 ### Modifier Methods
 
@@ -52,14 +52,6 @@ hopps.set('a.b.c', { d: 1 }, 'hi!')
 
 #### `.get(template, data)`
 
-In order to retrieve deeply burrowed data, use `.get`.
-
- - **template** - template used to target data to be returned
- - **data** - object from which to retrieve the value
-
-```js
-hopps.get('a.b.c', { a: { b: { c: 'hi!' } } }) // => 'hi!'
-```
 
 <details>
   <summary>Edge Cases</summary>
