@@ -140,7 +140,7 @@ describe('thump.put', () => {
     expect(noParam).toThrow('value must be specified, recieved undefined.')
   })
 
-  it('throws TypeError when data tree does not match template', () => {
+  it('throws TypeError when the structure of data conflicts with tempate', () => {
 
     const badTree = () => thump.put('a.b', { a: 'notAnObject' }, 1)
 
@@ -149,7 +149,7 @@ describe('thump.put', () => {
 
     expect(
       () => thump.put('a.b.c', { a: { b: 'notAnObject' } }, 1)
-    ).toThrow('Address a.b is not an object')
+    ).toThrow('Address a.b is not an object.')
   })
 
 })
