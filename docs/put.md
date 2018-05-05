@@ -31,7 +31,7 @@ hopps.put('a.b', { a: 'notAnObject' }, 'placeholder') // => { a: 'notAnObject' }
 
 /* With `.thump`, a TypeError is thrown */
 hopps.thump.put('a.b', { a: 'notAnObject' }, 'placeholder')
-// => TypeError: Address a.b is not an object.
+// => TypeError: Address a is not an object.
 ```
 
 <details>

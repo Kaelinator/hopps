@@ -35,7 +35,7 @@ const strictlyPut = (data, obj, key, i, arr) => {
         
   const target = get(false)(arr.slice(0, i), data) || {}
 
-  if (target.hasOwnProperty(key) && typeof target[key] !== typeof obj)
+  if (target.hasOwnProperty(key) && typeof target[key] !== 'object' && i !== arr.length - 1)
     throw new TypeError('Address ' + arr.slice(0, i + 1).join('.') + ' is not an object.')
 
   return Object.assign({ [key]: obj }, target)

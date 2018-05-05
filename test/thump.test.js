@@ -104,6 +104,10 @@ describe('thump.put', () => {
     expect(
       thump.put('a.b', { a: { b: 'occupied' } }, 'placeholder')
     ).toEqual({ a: { b: 'occupied' } })
+
+    expect(
+      thump.put('a.b', { a: { b: 'occupied' } }, 52)
+    ).toEqual({ a: { b: 'occupied' } })
   })
 
   it('throws TypeError when template is not a string nor an array', () => {
@@ -145,10 +149,10 @@ describe('thump.put', () => {
     const badTree = () => thump.put('a.b', { a: 'notAnObject' }, 1)
 
     expect(badTree).toThrow(TypeError)
-    expect(badTree).toThrow('Address a is not an object')
+    expect(badTree).toThrow('Address a is not an object.')
 
     expect(
-      () => thump.put('a.b.c', { a: { b: 'notAnObject' } }, 1)
+      () => thump.put('a.b.c', { a: { b: 22 } }, 1)
     ).toThrow('Address a.b is not an object.')
   })
 
