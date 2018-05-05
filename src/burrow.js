@@ -14,27 +14,60 @@ const strictlyGet = (obj, key, i, arr) => {
   return obj[key]
 }
 
-const set = (throwErrors) =>
+const put = (throwErrors) =>
   (template, data, value) => {
 
-    const validTemplate = prepTemplate(template, throwErrors)
-  
-    if (typeof data !== 'object' || data === null)
-      if (throwErrors)
-        throw new TypeError('data must be an object, recieved ' + 
-          ((data === null) ? null : typeof data) + '.')
-      else
-        data = {}
+    template = prepTemplate(template, throwErrors)
+    data = prepData(data, throwErrors)
 
     if (!value && throwErrors)
       throw new TypeError('value must be specified, recieved ' + value + '.')
 
-    return (validTemplate.length === 0)
-      ? data
-      : validTemplate.reduceRight((obj, key, i, arr) => 
-        Object.assign(get(false)(arr.slice(0, i), data) || {}, { [key]: obj }), value
-      )
+    if (template.length === 0)
+      return data
+
+    return template.reduceRight((obj, key, i, arr) => throwErrors
+      ? strictlyPut(data, obj, key, i, arr)
+      : Object.assign({ [key]: obj }, get(false)(arr.slice(0, i), data) || {}), value)
+    }
+
+const strictlyPut = (data, obj, key, i, arr) => {
+        
+  const target = get(false)(arr.slice(0, i), data) || {}
+
+  if (target.hasOwnProperty(key) && typeof target[key] !== 'object' && i !== arr.length - 1)
+    throw new TypeError('Address ' + arr.slice(0, i + 1).join('.') + ' is not an object.')
+
+  return Object.assign({ [key]: obj }, target)
+}
+
+const set = (throwErrors) =>
+  (template, data, value) => {
+
+    template = prepTemplate(template, throwErrors)
+    data = prepData(data, throwErrors)
+
+    if (!value && throwErrors)
+      throw new TypeError('value must be specified, recieved ' + value + '.')
+
+    if (template.length === 0)
+      return data
+    
+    return template.reduceRight((obj, key, i, arr) =>
+        Object.assign(get(false)(arr.slice(0, i), data) || {}, { [key]: obj }), value)
   }
+
+const prepData = (data, throwErrors) => {
+
+  if (typeof data !== 'object' || data === null)
+      if (throwErrors)
+        throw new TypeError('data must be an object, recieved ' + 
+          ((data === null) ? null : typeof data) + '.')
+      else
+        return {}
+
+  return data
+}
 
 const prepTemplate = (template, throwErrors) => {
 
@@ -53,7 +86,9 @@ const prepTemplate = (template, throwErrors) => {
 
 module.exports = {
   get: get(false),
-  set: set(false),
+  put: put(false),
+  set: set(false, true),
   _get: get(true),
-  _set: set(true)
+  _put: put(true),
+  _set: set(true, true)
 }
