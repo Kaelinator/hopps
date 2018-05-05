@@ -32,7 +32,7 @@ hopps.set('a.b.c', { d: 1 }, 'hi!')
     b: {
       c: 'hi!'
     }
-  }
+  },
   d: 1
 }*/
 ```
@@ -41,8 +41,8 @@ hopps.set('a.b.c', { d: 1 }, 'hi!')
 
  * [Invocable Methods](#invocable-methods)
    * [`.get(template, data)`](docs/get.md) - _get deeply burrowed data_
-   * [`.set(template, data, value)`](#settemplate-data-value) - _set deeply burrowed data_
-   * [`.put(template, data, value)`](docs/put.md) - _like `.set`, but values are not overwritten_
+   * [`.set(template, data, value)`](docs/set.md) - _set deeply burrowed data_
+   * [`.put(template, data, value)`](docs/put.md) - _like [`.set`](docs/set.md), but values are not overwritten_
  * [Modifier Methods](#modifier-methods)
    * [`.thump`](docs/thump.md) - _throw errors instead of curbing them_
 
@@ -81,18 +81,6 @@ hopps.set('a.b.c', { d: 1 }, 'hi!')
     ```
     </details>
 </details>
-
-#### `.set(template, data, value)`
-
-In order to set deeply burrowed data, use `.set`. By default, any data that is in the way will be overwritten with the new data.
-
- - **template** - template used to target the address of `value`
- - **data** - existing object to insert `value` into
- - **value** - value of the final property in `template`
-
-```js
-hopps.set('a.b.c', { d: 1 }, 'hi!') // => { a: { b: { c: 'hi!' } }, d: 1 }
-```
 
 <details>
   <summary>Edge cases</summary>

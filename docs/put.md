@@ -1,5 +1,5 @@
 # `.put(template, data, value)`
-_Like `.set`, but values are not overwritten_
+_like [`.set`](set.md), but values are not overwritten_
 
 ## Description
 In order to not overwrite the value, but place a given value in the value's absence (and necessary values leading up), use `.put`.

@@ -12,12 +12,6 @@ In order to retrieve deeply burrowed data, use `.get`.
 ```js
 const data = { a: { b: { c: 'hi!' } } }
 
-hopps.get('a.b', data) // => { c: 'hi!' }
-```
-
-```js
-const data = { a: { b: { c: 'hi!' } } }
-
 hopps.get('a.b.c', data) // => 'hi!'
 ```
 
