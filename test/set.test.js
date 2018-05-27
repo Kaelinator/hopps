@@ -1,5 +1,6 @@
 'use strict'
 const set = require('../src/set')(false)
+const thumpSet = require('../src/set')(true)
 
 describe('set', () => {
 
@@ -42,5 +43,53 @@ describe('set', () => {
     expect(set('a', true, 1)).toEqual({ a: 1 })
     expect(set('a', null, 1)).toEqual({ a: 1 })
     expect(set('a', 'hi', 1)).toEqual({ a: 1 })
+  })
+})
+
+describe('thumpSet', () => {
+
+  it('performs like burrow.set', () => {
+
+    expect(
+      thumpSet('a.b.c', {}, 'hi!')
+    ).toEqual({ a: { b: { c: 'hi!' } } })
+
+    expect(
+      thumpSet('a.b.c', { d: 1 }, 'hi!')
+    ).toEqual({ a: { b: { c: 'hi!' } }, d: 1 })
+  })
+
+  it('throws TypeError when template is not a string nor an array', () => {
+
+    const badParam = () => thumpSet(undefined, {}, 'hi!')
+
+    expect(badParam).toThrow(TypeError)
+    expect(badParam).toThrow('template must be of type string or array, recieved undefined.')
+
+    expect(() => thumpSet(42, {}, 'hi!')).toThrow(/number/)
+    expect(() => thumpSet(null, {}, 'hi!')).toThrow(/null/)
+    expect(() => thumpSet({}, {}, 'hi!')).toThrow(/object/)
+    expect(() => thumpSet(true, {}, 'hi!')).toThrow(/boolean/)
+  })
+
+  it('throws TypeError when data is not an object', () => {
+    
+    const noParam = () => thumpSet('a', undefined)
+
+    expect(noParam).toThrow(TypeError)
+    expect(noParam).toThrow('data must be an object, recieved undefined.')
+
+    expect(() => thumpSet('a', 42)).toThrow(/number/)
+    expect(() => thumpSet('a', null)).toThrow(/null/)
+    expect(() => thumpSet('a', 'hi')).toThrow(/string/)
+    expect(() => thumpSet('a', true)).toThrow(/boolean/)
+  })
+
+  it('throws TypeError when value is unspecified', () => {
+    
+    const noParam = () => thumpSet('a', {}, undefined)
+
+    expect(noParam).toThrow(TypeError)
+    expect(noParam).toThrow('value must be specified, recieved undefined.')
   })
 })
