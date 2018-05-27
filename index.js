@@ -1,13 +1,15 @@
 
-const burrow = require('./src/burrow')
+const get = require('./src/get')
+const set = require('./src/set')
+const put = require('./src/put')
 
 module.exports = {
-  get: burrow.get,
-  put: burrow.put,
-  set: burrow.set,
+  get: get,
+  put: put,
+  set: set,
   thump: {
-    get: burrow._get,
-    put: burrow._put,
-    set: burrow._set
+    get: get(true),
+    put: put(true),
+    set: set(true)
   }
 }
