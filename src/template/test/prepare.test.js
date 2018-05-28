@@ -2,35 +2,52 @@ const prepare = require('../prepare')
 
 describe('prepare.template', () => {
 
-  it('returns [ addresses, throwErrors ], where the addresses is an array of templates', () => {
+  it('returns all address permutations of a template', () => {
 
-    [addrs, throwErrors] = prepare(/a.b/)
+    const addrs = prepare.template(/a.b/)
 
     expect(addrs).toEqual(['a', 'b'])
-    expect(throwErrors).toEqual(false)
-  })
-
-  it('picks up on i flag', () => {
-
-    expect(prepare(/a.b/muy)[1]).toBeFalsy()
-    expect(prepare(/a.b/g)[1]).toBeFalsy()
-    expect(prepare(/a.b/i)[1]).toBeTruthy()
   })
 
   it('handles brackets as lists', () => {
 
-    expect(prepare(/[1,2,3]/)[0]).toEqual([ ['1'], ['2'], ['3'] ])
-    expect(prepare(/a[1,2,3].b/)[0]).toEqual([ ['a', '1', 'b'], ['a', '2', 'b'], ['a', '3', 'b'] ])
-    expect(prepare(/aef[1,2,3].bcd/)[0]).toEqual([ ['aef', '1', 'bcd'], ['aef', '2', 'bcd'], ['aef', '3', 'bcd'] ])
+    expect(prepare.template(/[1,2,3]/)).toEqual([ ['1'], ['2'], ['3'] ])
+    expect(prepare.template(/a[1,2,3].b/)).toEqual([ ['a', '1', 'b'], ['a', '2', 'b'], ['a', '3', 'b'] ])
+    expect(prepare.template(/aef[1,2,3].bcd/)).toEqual([ ['aef', '1', 'bcd'], ['aef', '2', 'bcd'], ['aef', '3', 'bcd'] ])
+  })
 
+  it('handles multiple lists', () => {
+    
     expect(
-      prepare(/judy.hopps[1,2].carrot[3,4]/)
-    ).toEqual([[
+      prepare.template(/judy.hopps[1,2].carrot[3,4]/)
+    ).toEqual([
       ['judy', 'hopps', '1', 'carrot', '3'],
       ['judy', 'hopps', '1', 'carrot', '4'],
       ['judy', 'hopps', '2', 'carrot', '3'],
       ['judy', 'hopps', '2', 'carrot', '4']
-    ], false])
+    ])
+    
+    expect(
+      prepare.template(/[5,9].judy.hopps[1,2].carrot[3,4]/)
+    ).toEqual([
+      ['5', 'judy', 'hopps', '1', 'carrot', '3'],
+      ['5', 'judy', 'hopps', '1', 'carrot', '4'],
+      ['5', 'judy', 'hopps', '2', 'carrot', '3'],
+      ['5', 'judy', 'hopps', '2', 'carrot', '4'],
+      ['9', 'judy', 'hopps', '1', 'carrot', '3'],
+      ['9', 'judy', 'hopps', '1', 'carrot', '4'],
+      ['9', 'judy', 'hopps', '2', 'carrot', '3'],
+      ['9', 'judy', 'hopps', '2', 'carrot', '4']
+    ])
   })
+})
 
+describe('prepare.error', () => {
+
+  it('returns whether or not to use thump based on `i` flag', () => {
+
+    expect(prepare.error(/a.b/muy)).toBeFalsy()
+    expect(prepare.error(/a.b/g)).toBeFalsy()
+    expect(prepare.error(/a.b/i)).toBeTruthy()
+  })
 })

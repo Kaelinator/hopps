@@ -35,6 +35,7 @@ const nextBrackets = template => {
         : expandTemplate(address)), [])
 }
 
-module.exports = template => (template instanceof RegExp)
-  ? [expandTemplate(template.source), template.flags.includes('i')]
-  : [[], false]
+module.exports = {
+  template: template => (template instanceof RegExp) && expandTemplate(template.source) || [],
+  error: template => (template instanceof RegExp) && template.flags.includes('i') || false
+}
