@@ -11,7 +11,7 @@ In order to set deeply burrowed data, use `.set`. By default, any data that is i
 
 ## Examples
 ```js
-hopps.set('a.b.c', { d: 1 }, 'hi!') 
+hopps.set(/a.b.c/, { d: 1 }, 'hi!') 
 /* => {
   a: {
     b: {
@@ -37,17 +37,17 @@ hopps.thump.set(42, { a: 'carrot' }, 'hi!')
 **If `data` is not an object:**
 ```js
 /* By default, an empty object is used in place, so that the insertion may take place */
-hopps.set('a.b.c', null, 'hi!') // => { a: { b: { c: 'hi!' } } }
+hopps.set(/a.b.c/, null, 'hi!') // => { a: { b: { c: 'hi!' } } }
 
 /* With `.thump`, a TypeError is thrown */
-hopps.thump.set('a.b.c', null, 'hi!') // => TypeError: data must be an object, recieved null.
+hopps.thump.set(/a.b.c/, null, 'hi!') // => TypeError: data must be an object, recieved null.
 ```
 
 **If `value` is undefined:**
 ```js
 /* By default, `value` is set to undefined */
-hopps.set('a.b', {}, undefined) // => { a: { b: undefined } }
+hopps.set(/a.b/, {}, undefined) // => { a: { b: undefined } }
 
 /* With `.thump`, a TypeError is thrown */
-hopps.thump.set('a.b', {}, undefined) // => TypeError: value must be specified, recieved undefined.
+hopps.thump.set(/a.b/, {}, undefined) // => TypeError: value must be specified, recieved undefined.
 ```

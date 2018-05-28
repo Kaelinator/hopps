@@ -12,7 +12,7 @@ In order to retrieve deeply burrowed data, use `.get`.
 ```js
 const data = { a: { b: { c: 'hi!' } } }
 
-hopps.get('a.b.c', data) // => 'hi!'
+hopps.get(/a.b.c/, data) // => 'hi!'
 ```
 
 ## Edge Cases
@@ -29,8 +29,8 @@ hopps.thump.get(42, { a: 'carrot' })
 **If the address specified by `template` does not exist (this includes non-object `data` values):**
 ```js
 /* By default, undefined is returned. */
-hopps.get('a.b', { a: { c: 1 } }) // => undefined
+hopps.get(/a.b/, { a: { c: 1 } }) // => undefined
 
 /* With `.thump`, a TypeError is thrown. */
-hopps.thump.get('a.b.c', { a: { e: 1 } }) // => TypeError: Address a.b is not an object
+hopps.thump.get(/a.b.c/, { a: { e: 1 } }) // => TypeError: Address a.b is not an object
 ```

@@ -7,8 +7,8 @@ By default, for every [invocable method](../README.md#invocable-methods), all er
 ## Examples
 ```js
 /* By default, undefined is returned. */
-hopps.get('a.b', { a: { c: 1 } }) // => undefined
+hopps.get(/a.b/, { a: { c: 1 } }) // => undefined
 
 /* With `.thump`, a TypeError is thrown. */
-hopps.thump.get('a.b.c', { a: { e: 1 } }) // => TypeError: Address a.b is not an object
+hopps.thump.get(/a.b.c/, { a: { e: 1 } }) // => TypeError: Address a.b is not an object
 ```
