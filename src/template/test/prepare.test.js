@@ -65,7 +65,9 @@ describe('prepare.template', () => {
 
   it('handles sequences', () => {
 
-    expect(prepare.template(/[1..3]/)).toEqual([[1], [2]])
+    expect(prepare.template(/[0..5]/)).toEqual([{ begin: 0, end: 5 }])
+    expect(prepare.template(/[-3..3]/)).toEqual([{ begin: -3, end: 3 }])
+    expect(prepare.template(/[5..-3]/)).toEqual([{ begin: 5, end: -3 }])
   })
 })
 

@@ -11,19 +11,17 @@ const count = c => (c === '[')
 
 const expandSeries = address => {
 
-  [lo, hi] = address
+  [ begin, end ] = address
     .split('..')
     .map(Number)
 
-  return Array(hi - lo)
-    .fill(0)
-    .map((x, i) => [ i + lo ])
+  return { begin, end }
 }
 
 const nextBrackets = template => {
 
   const start = template.indexOf('[')
-  const commas = [ 0 ]
+  const commas = [0]
   let end = start + 1
   let counter = 1
 
@@ -42,10 +40,10 @@ const nextBrackets = template => {
   return commas
     .map((j, i, a) => (pre && (pre + '.') || '') + bracketContents.slice(j, (a[i + 1] - 1) || undefined) + suf)
     .reduce((arr, address) => arr.concat(/\[.*\]/.test(address)
-        ? expandTemplate(address)
-        : /^\d+\.\.-?\d+$/.test(address)
-        ? expandSeries(address)
-        : [ address.split('.') ]), [])
+      ? expandTemplate(address)
+      : /^-?\d+\.\.-?\d+$/.test(address)
+      ? expandSeries(address)
+      : [address.split('.')]), [])
 }
 
 module.exports = {
