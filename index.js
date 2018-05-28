@@ -4,9 +4,9 @@ const set = require('./src/set')
 const put = require('./src/put')
 
 module.exports = {
-  get: get,
-  put: put,
-  set: set,
+  get: get(),
+  put: put(),
+  set: set(),
   thump: {
     get: get(true),
     put: put(true),
