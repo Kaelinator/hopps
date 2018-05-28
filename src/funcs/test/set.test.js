@@ -6,14 +6,14 @@ describe('set', () => {
   it('sets deeply burrowed data', () => {
 
     expect(
-      set('a.b.c', {}, 'hi!')
+      set(/a.b.c/, {}, 'hi!')
     ).toEqual({ a: { b: { c: 'hi!' } } })
   })
 
   it('maintains original data', () => {
 
     expect(
-      set('a.b.c', { d: 1 }, 'hi!')
+      set(/a.b.c/, { d: 1 }, 'hi!')
     ).toEqual({ a: { b: { c: 'hi!' } }, d: 1 })
   })
 
@@ -35,13 +35,13 @@ describe('set', () => {
   it('treats data as an object if data is not of type object', () => {
 
     expect(
-      set('a', undefined, 1)
+      set(/a/, undefined, 1)
     ).toEqual({ a: 1 })
 
-    expect(set('a', 42, 1)).toEqual({ a: 1 })
-    expect(set('a', true, 1)).toEqual({ a: 1 })
-    expect(set('a', null, 1)).toEqual({ a: 1 })
-    expect(set('a', 'hi', 1)).toEqual({ a: 1 })
+    expect(set(/a/, 42, 1)).toEqual({ a: 1 })
+    expect(set(/a/, true, 1)).toEqual({ a: 1 })
+    expect(set(/a/, null, 1)).toEqual({ a: 1 })
+    expect(set(/a/, 'hi', 1)).toEqual({ a: 1 })
   })
 })
 
@@ -50,11 +50,11 @@ describe('thumpSet', () => {
   it('performs like burrow.set', () => {
 
     expect(
-      thumpSet('a.b.c', {}, 'hi!')
+      thumpSet(/a.b.c/, {}, 'hi!')
     ).toEqual({ a: { b: { c: 'hi!' } } })
 
     expect(
-      thumpSet('a.b.c', { d: 1 }, 'hi!')
+      thumpSet(/a.b.c/, { d: 1 }, 'hi!')
     ).toEqual({ a: { b: { c: 'hi!' } }, d: 1 })
   })
 
@@ -63,7 +63,7 @@ describe('thumpSet', () => {
     const badParam = () => thumpSet(undefined, {}, 'hi!')
 
     expect(badParam).toThrow(TypeError)
-    expect(badParam).toThrow('template must be of type string or array, recieved undefined.')
+    expect(badParam).toThrow('template must be an instance of RegExp, recieved undefined.')
 
     expect(() => thumpSet(42, {}, 'hi!')).toThrow(/number/)
     expect(() => thumpSet(null, {}, 'hi!')).toThrow(/null/)
@@ -73,20 +73,20 @@ describe('thumpSet', () => {
 
   it('throws TypeError when data is not an object', () => {
     
-    const noParam = () => thumpSet('a', undefined)
+    const noParam = () => thumpSet(/a/, undefined)
 
     expect(noParam).toThrow(TypeError)
     expect(noParam).toThrow('data must be an object, recieved undefined.')
 
-    expect(() => thumpSet('a', 42)).toThrow(/number/)
-    expect(() => thumpSet('a', null)).toThrow(/null/)
-    expect(() => thumpSet('a', 'hi')).toThrow(/string/)
-    expect(() => thumpSet('a', true)).toThrow(/boolean/)
+    expect(() => thumpSet(/a/, 42)).toThrow(/number/)
+    expect(() => thumpSet(/a/, null)).toThrow(/null/)
+    expect(() => thumpSet(/a/, 'hi')).toThrow(/string/)
+    expect(() => thumpSet(/a/, true)).toThrow(/boolean/)
   })
 
   it('throws TypeError when value is unspecified', () => {
     
-    const noParam = () => thumpSet('a', {}, undefined)
+    const noParam = () => thumpSet(/a/, {}, undefined)
 
     expect(noParam).toThrow(TypeError)
     expect(noParam).toThrow('value must be specified, recieved undefined.')
