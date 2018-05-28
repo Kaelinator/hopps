@@ -1,6 +1,6 @@
 'use strict'
-const put = require('../src/put')(false)
-const thumpPut = require('../src/put')(true)
+const put = require('../put')(false)
+const thumpPut = require('../put')(true)
 
 describe('put', () => {
   

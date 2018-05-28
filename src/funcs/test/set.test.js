@@ -1,6 +1,6 @@
 'use strict'
-const set = require('../src/set')(false)
-const thumpSet = require('../src/set')(true)
+const set = require('../set')(false)
+const thumpSet = require('../set')(true)
 
 describe('set', () => {
 

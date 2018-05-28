@@ -1,6 +1,6 @@
 'use strict'
-const get = require('../src/get')(false)
-const thumpGet = require('../src/get')(true)
+const get = require('../get')(false)
+const thumpGet = require('../get')(true)
 
 describe('get', () => {
 
