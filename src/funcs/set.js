@@ -1,11 +1,11 @@
-const prepare = require('../template/prepare')
+const sanitize = require('./sanitize')
 const get = require('./get')(false)
 
 const set = (throwErrors) =>
   (template, data, value) => {
 
-    template = prepare.template(template, throwErrors)
-    data = prepare.data(data, throwErrors)
+    template = sanitize.template(template, throwErrors)
+    data = sanitize.data(data, throwErrors)
 
     if (!value && throwErrors)
       throw new TypeError('value must be specified, recieved ' + value + '.')

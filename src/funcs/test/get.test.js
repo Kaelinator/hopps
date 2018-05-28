@@ -6,11 +6,11 @@ describe('get', () => {
   it('gets deeply burrowed data', () => {
 
     expect(
-      get(/a.b.c/, { a: { b: { c: 'hi!' } } })
+      get('a.b.c', { a: { b: { c: 'hi!' } } })
     ).toEqual('hi!')
 
     expect(
-      get(/a.b/, { a: { b: 10 } })
+      get('a.b', { a: { b: 10 } })
     ).toEqual(10)
   })
 
@@ -24,7 +24,7 @@ describe('get', () => {
   it('returns undefined if no value is found', () => {
 
     expect(
-      get(/a.b/, {})
+      get('a.b', {})
     ).toBeUndefined()
   })
 
@@ -49,7 +49,7 @@ describe('thumpGet', () => {
   it('performs like burrow.get', () => {
 
     expect(
-      thumpGet(/a.b/, { a: { b: 'hi!' } })
+      thumpGet('a.b', { a: { b: 'hi!' } })
     ).toEqual('hi!')
 
     expect(
@@ -59,14 +59,14 @@ describe('thumpGet', () => {
 
   it('throws TypeError when template has invalid address', () => {
 
-    const invalidAddress = () => thumpGet(/a.b/, {})
+    const invalidAddress = () => thumpGet('a.b', {})
 
     expect(invalidAddress).toThrow(TypeError)
     expect(invalidAddress).toThrow('Address a is not an object')
 
-    expect(() => thumpGet(/a/, 4242)).toThrow(TypeError)
-    expect(() => thumpGet(/a/, 'hi')).toThrow(TypeError)
-    expect(() => thumpGet(/a/, true)).toThrow(TypeError)
-    expect(() => thumpGet(/a/, null)).toThrow(TypeError)
+    expect(() => thumpGet('a', 4242)).toThrow(TypeError)
+    expect(() => thumpGet('a', 'hi')).toThrow(TypeError)
+    expect(() => thumpGet('a', true)).toThrow(TypeError)
+    expect(() => thumpGet('a', null)).toThrow(TypeError)
   })
 })

@@ -4,16 +4,13 @@ const prepareTemplate = (template, throwErrors) => {
   if (Array.isArray(template))
     return template
   
-  if (template instanceof RegExp)
-    return template
-      .toString()
-      .slice(1, -1)
-      .split('.')
+  if (typeof template === 'string')
+    return template.split('.')
 
   if (!throwErrors)
     return []
 
-  throw new TypeError('template must be an instance of RegExp, recieved ' + 
+  throw new TypeError('template must be of type string or array, recieved ' + 
     ((template === null) ? null : typeof template) + '.')
 }
 
@@ -29,7 +26,7 @@ const prepareData = (data, throwErrors) => {
   return data
 }
 
-// module.exports = {
-//   template: prepareTemplate,
-//   data: prepareData
-// }
+module.exports = {
+  template: prepareTemplate,
+  data: prepareData
+}
