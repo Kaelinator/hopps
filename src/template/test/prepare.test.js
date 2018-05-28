@@ -21,5 +21,16 @@ describe('prepare.template', () => {
 
     expect(prepare(/[1,2,3]/)[0]).toEqual([ ['1'], ['2'], ['3'] ])
     expect(prepare(/a[1,2,3].b/)[0]).toEqual([ ['a', '1', 'b'], ['a', '2', 'b'], ['a', '3', 'b'] ])
+    expect(prepare(/aef[1,2,3].bcd/)[0]).toEqual([ ['aef', '1', 'bcd'], ['aef', '2', 'bcd'], ['aef', '3', 'bcd'] ])
+
+    expect(
+      prepare(/judy.hopps[1,2].carrot[3,4]/)
+    ).toEqual([[
+      ['judy', 'hopps', '1', 'carrot', '3'],
+      ['judy', 'hopps', '1', 'carrot', '4'],
+      ['judy', 'hopps', '2', 'carrot', '3'],
+      ['judy', 'hopps', '2', 'carrot', '4']
+    ], false])
   })
+
 })

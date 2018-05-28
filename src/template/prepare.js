@@ -4,9 +4,9 @@ const expandTemplate = template => !/\[.*\]/.test(template)
   : nextBrackets(template)
 
 const count = c => (c === '[')
-  ? 1 
+  ? 1
   : (c === ']')
-  ? -1 
+  ? -1
   : 0
 
 const nextBrackets = template => {
@@ -19,15 +19,22 @@ const nextBrackets = template => {
   while (counter) {
 
     if (counter && template[end] === ',')
-      commas.push(end)
+      commas.push(end - start)
 
     counter += count(template[end++])
   }
 
   const bracketContents = template.slice(start + 1, end - 1)
-  return commas.map((j, i, a) => expandTemplate(bracketContents.slice(j, (a[i + 1] - 1) || undefined)))
+  const pre = template.slice(0, start)
+  const suf = template.slice(end)
+
+  return commas
+    .map((j, i, a) => (pre && (pre + '.') || '') + bracketContents.slice(j, (a[i + 1] - 1) || undefined) + suf)
+    .reduce((arr, address) => arr.concat(!/\[.*\]/.test(address)
+        ? [ address.split('.') ]
+        : expandTemplate(address)), [])
 }
 
 module.exports = template => (template instanceof RegExp)
-  ? [ expandTemplate(template.source), template.flags.includes('i') ]
-  : [ [], false ]
+  ? [expandTemplate(template.source), template.flags.includes('i')]
+  : [[], false]
