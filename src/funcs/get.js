@@ -1,5 +1,4 @@
-'use strict'
-const prepare = require('./prepare')
+const prepare = require('../template/prepare')
 
 const get = (throwErrors) =>
   (template, data) => prepare.template(template, throwErrors)

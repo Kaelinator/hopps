@@ -1,4 +1,3 @@
-'use strict'
 const get = require('../get')(false)
 const thumpGet = require('../get')(true)
 

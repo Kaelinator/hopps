@@ -1,4 +1,3 @@
-'use strict'
 const put = require('../put')(false)
 const thumpPut = require('../put')(true)
 

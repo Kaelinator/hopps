@@ -1,4 +1,3 @@
-'use strict'
 const set = require('../set')(false)
 const thumpSet = require('../set')(true)
 
