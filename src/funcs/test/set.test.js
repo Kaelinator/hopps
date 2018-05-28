@@ -58,32 +58,6 @@ describe('thumpSet', () => {
     ).toEqual({ a: { b: { c: 'hi!' } }, d: 1 })
   })
 
-  it('throws TypeError when template is not a string nor an array', () => {
-
-    const badParam = () => thumpSet(undefined, {}, 'hi!')
-
-    expect(badParam).toThrow(TypeError)
-    expect(badParam).toThrow('template must be an instance of RegExp, recieved undefined.')
-
-    expect(() => thumpSet(42, {}, 'hi!')).toThrow(/number/)
-    expect(() => thumpSet(null, {}, 'hi!')).toThrow(/null/)
-    expect(() => thumpSet({}, {}, 'hi!')).toThrow(/object/)
-    expect(() => thumpSet(true, {}, 'hi!')).toThrow(/boolean/)
-  })
-
-  it('throws TypeError when data is not an object', () => {
-    
-    const noParam = () => thumpSet(/a/, undefined)
-
-    expect(noParam).toThrow(TypeError)
-    expect(noParam).toThrow('data must be an object, recieved undefined.')
-
-    expect(() => thumpSet(/a/, 42)).toThrow(/number/)
-    expect(() => thumpSet(/a/, null)).toThrow(/null/)
-    expect(() => thumpSet(/a/, 'hi')).toThrow(/string/)
-    expect(() => thumpSet(/a/, true)).toThrow(/boolean/)
-  })
-
   it('throws TypeError when value is unspecified', () => {
     
     const noParam = () => thumpSet(/a/, {}, undefined)

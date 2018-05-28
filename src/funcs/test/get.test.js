@@ -57,19 +57,6 @@ describe('thumpGet', () => {
     ).toEqual(10)
   })
 
-  it('throws TypeError when template is not a string nor an array', () => {
-
-    const noParam = () => thumpGet(undefined)
-
-    expect(noParam).toThrow(TypeError)
-    expect(noParam).toThrow('template must be an instance of RegExp, recieved undefined.')
-
-    expect(() => thumpGet(42)).toThrow(/number/)
-    expect(() => thumpGet(null)).toThrow(/null/)
-    expect(() => thumpGet({})).toThrow(/object/)
-    expect(() => thumpGet(true)).toThrow(/boolean/)
-  })
-
   it('throws TypeError when template has invalid address', () => {
 
     const invalidAddress = () => thumpGet(/a.b/, {})

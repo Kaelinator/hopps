@@ -54,32 +54,6 @@ describe('thumpPut', () => {
     ).toEqual({ a: { b: 'occupied' } })
   })
 
-  it('throws TypeError when template is not a string nor an array', () => {
-
-    const badParam = () => thumpPut(undefined, {}, 'hi!')
-
-    expect(badParam).toThrow(TypeError)
-    expect(badParam).toThrow('template must be an instance of RegExp, recieved undefined.')
-
-    expect(() => thumpPut(42, {}, 'hi!')).toThrow(/number/)
-    expect(() => thumpPut(null, {}, 'hi!')).toThrow(/null/)
-    expect(() => thumpPut({}, {}, 'hi!')).toThrow(/object/)
-    expect(() => thumpPut(true, {}, 'hi!')).toThrow(/boolean/)
-  })
-
-  it('throws TypeError when data is not an object', () => {
-    
-    const noParam = () => thumpPut(/a/, undefined)
-
-    expect(noParam).toThrow(TypeError)
-    expect(noParam).toThrow('data must be an object, recieved undefined.')
-
-    expect(() => thumpPut(/a/, 42)).toThrow(/number/)
-    expect(() => thumpPut(/a/, null)).toThrow(/null/)
-    expect(() => thumpPut(/a/, 'hi')).toThrow(/string/)
-    expect(() => thumpPut(/a/, true)).toThrow(/boolean/)
-  })
-
   it('throws TypeError when value is unspecified', () => {
     
     const noParam = () => thumpPut(/a/, {}, undefined)
