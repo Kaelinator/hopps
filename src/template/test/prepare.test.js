@@ -40,6 +40,18 @@ describe('prepare.template', () => {
       ['9', 'judy', 'hopps', '2', 'carrot', '4']
     ])
   })
+
+  it('handles nested lists', () => {
+    
+    expect(
+      prepare.template(/judy[1,2,3[5,6]].hopps/)
+    ).toEqual([
+      ['judy', '1', 'hopps'],
+      ['judy', '2', 'hopps'],
+      ['judy', '3', '5', 'hopps'],
+      ['judy', '3', '6', 'hopps'],
+    ])
+  })
 })
 
 describe('prepare.error', () => {

@@ -18,7 +18,7 @@ const nextBrackets = template => {
 
   while (counter) {
 
-    if (counter && template[end] === ',')
+    if (counter === 1 && template[end] === ',')
       commas.push(end - start)
 
     counter += count(template[end++])
