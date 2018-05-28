@@ -51,6 +51,21 @@ describe('prepare.template', () => {
       ['judy', '3', '5', 'hopps'],
       ['judy', '3', '6', 'hopps'],
     ])
+
+    expect(
+      prepare.template(/[a[c[g,h],d],b[e,f]]/)
+    ).toEqual([
+      ["a", "c", "g"],
+      ["a", "c", "h"],
+      ["a", "d"],
+      ["b", "e"],
+      ["b", "f"]
+    ])
+  })
+
+  it('handles sequences', () => {
+
+    expect(prepare.template(/[1..3]/)).toEqual([[1], [2]])
   })
 })
 
