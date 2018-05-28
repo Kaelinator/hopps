@@ -2,10 +2,24 @@ const prepare = require('../prepare')
 
 describe('prepare.template', () => {
 
-  it('splits by periods and picks up on i flag', () => {
+  it('returns [ addresses, throwErrors ], where the addresses is an array of templates', () => {
 
-    expect(prepare(/a.b/)).toEqual([ ['a', 'b'], false ])
-    expect(prepare(/a.b/g)).toEqual([ ['a', 'b'], false ])
-    expect(prepare(/a.b/i)).toEqual([ ['a', 'b'], true ])
+    [addrs, throwErrors] = prepare(/a.b/)
+
+    expect(addrs).toEqual(['a', 'b'])
+    expect(throwErrors).toEqual(false)
+  })
+
+  it('picks up on i flag', () => {
+
+    expect(prepare(/a.b/muy)[1]).toBeFalsy()
+    expect(prepare(/a.b/g)[1]).toBeFalsy()
+    expect(prepare(/a.b/i)[1]).toBeTruthy()
+  })
+
+  it('handles brackets as lists', () => {
+
+    expect(prepare(/[1,2,3]/)[0]).toEqual([ ['1'], ['2'], ['3'] ])
+    expect(prepare(/a[1,2,3].b/)[0]).toEqual([ ['a', '1', 'b'], ['a', '2', 'b'], ['a', '3', 'b'] ])
   })
 })
