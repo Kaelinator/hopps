@@ -3,21 +3,25 @@ const containsBraces = e => typeof e === 'string' && /\[.*\]/.test(e)
 const isSeries = e => typeof e === 'string' && /^-?\d+\.\.-?\d+$/.test(e)
 const isDotAddress = e => typeof e === 'string' && /[^\.]*\.[^.]*/.test(e) && !/\.\./.test(e)
 
+// const interpreter = [
+//   { test: containsBraces, consequent: handleBraces },
+//   { test: isSeries, consequent: handleSeries },
+//   { test: isDotAddress, consequent: handleDots },
+// ]
+
 const expandTemplate = address => {
 
-  for (let i = 0; i < address.length; i++) {
+  const x = address.findIndex(containsBraces)
+  const y = address.findIndex(isSeries)
+  const z = address.findIndex(isDotAddress)
 
-    const element = address[i]
-
-    if (containsBraces(element))
-      return handleBraces(address, i)
-    else if (isSeries(element))
-      return handleSeries(address, i)
-    else if (isDotAddress(element))
-      return handleDots(address, i)
-  }
-
-  return address
+  return (x !== -1)
+    ? handleBraces(address, x)
+    : (y !== -1)
+    ? handleSeries(address, y)
+    : (z !== -1)
+    ? handleDots(address, z)
+    : address
 }
 
 const notEmpty = v => typeof v !== 'string' || v.length
