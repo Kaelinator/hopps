@@ -1,5 +1,15 @@
 const prepare = require('../prepare')
 
+describe('prepare.error', () => {
+
+  it('returns whether or not to use thump based on `i` flag', () => {
+
+    expect(prepare.error(/a.b/muy)).toBeFalsy()
+    expect(prepare.error(/a.b/g)).toBeFalsy()
+    expect(prepare.error(/a.b/i)).toBeTruthy()
+  })
+})
+
 describe('prepare.template', () => {
 
   it('returns all address permutations of a template', () => {
@@ -55,11 +65,11 @@ describe('prepare.template', () => {
     expect(
       prepare.template(/[a[c[g,h],d],b[e,f]]/)
     ).toEqual([
-      ["a", "c", "g"],
-      ["a", "c", "h"],
-      ["a", "d"],
-      ["b", "e"],
-      ["b", "f"]
+      ['a', 'c', 'g'],
+      ['a', 'c', 'h'],
+      ['a', 'd'],
+      ['b', 'e'],
+      ['b', 'f']
     ])
   })
 
@@ -78,14 +88,41 @@ describe('prepare.template', () => {
       ['abc', { begin: 2, end: 4 }, 'def']
     ])
   })
-})
 
-describe('prepare.error', () => {
+  it('handles me trying to break it', () => {
 
-  it('returns whether or not to use thump based on `i` flag', () => {
+    expect(
+      prepare.template(/[a[c[g,h],d],b[e,f]].x[1,2].y[8,2..3]/)
+    ).toEqual([
+      ['a', 'c', 'g', 'x', '1', 'y', '8'],
+      ['a', 'c', 'g', 'x', '1', 'y', {begin: 2, end: 3}],
+      ['a', 'c', 'g', 'x', '2', 'y', '8'],
+      ['a', 'c', 'g', 'x', '2', 'y', {begin: 2, end: 3}],
+      ['a', 'c', 'h', 'x', '1', 'y', '8'],
+      ['a', 'c', 'h', 'x', '1', 'y', {begin: 2, end: 3}],
+      ['a', 'c', 'h', 'x', '2', 'y', '8'],
+      ['a', 'c', 'h', 'x', '2', 'y', {begin: 2, end: 3}],
+      ['a', 'd', 'x', '1', 'y', '8'],
+      ['a', 'd', 'x', '1', 'y', {begin: 2, end: 3}],
+      ['a', 'd', 'x', '2', 'y', '8'],
+      ['a', 'd', 'x', '2', 'y', {begin: 2, end: 3}],
+      ['b', 'e', 'x', '1', 'y', '8'],
+      ['b', 'e', 'x', '1', 'y', {begin: 2, end: 3}],
+      ['b', 'e', 'x', '2', 'y', '8'],
+      ['b', 'e', 'x', '2', 'y', {begin: 2, end: 3}],
+      ['b', 'f', 'x', '1', 'y', '8'],
+      ['b', 'f', 'x', '1', 'y', {begin: 2, end: 3}],
+      ['b', 'f', 'x', '2', 'y', '8'],
+      ['b', 'f', 'x', '2', 'y', {begin: 2, end: 3}]
+    ])
 
-    expect(prepare.error(/a.b/muy)).toBeFalsy()
-    expect(prepare.error(/a.b/g)).toBeFalsy()
-    expect(prepare.error(/a.b/i)).toBeTruthy()
+    expect(
+      prepare.template(/[[a,c],[b,d]]/)
+    ).toEqual([
+      ['a'],
+      ['c'],
+      ['b'],
+      ['d']
+    ])
   })
 })
