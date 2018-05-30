@@ -63,11 +63,20 @@ describe('prepare.template', () => {
     ])
   })
 
-  it('handles sequences', () => {
+  it('handles sequences by changing them to metadata', () => {
 
-    expect(prepare.template(/[0..5]/)).toEqual([{ begin: 0, end: 5 }])
-    expect(prepare.template(/[-3..3]/)).toEqual([{ begin: -3, end: 3 }])
-    expect(prepare.template(/[5..-3]/)).toEqual([{ begin: 5, end: -3 }])
+    expect(prepare.template(/[0..5]/)).toEqual([[{ begin: 0, end: 5 }]])
+    expect(prepare.template(/[-3..3]/)).toEqual([[{ begin: -3, end: 3 }]])
+    expect(prepare.template(/[5..-3]/)).toEqual([[{ begin: 5, end: -3 }]])
+  })
+
+  it('handles lists with sequences', () => {
+
+    expect(prepare.template(/[1,3,5,6..10]/)).toEqual([['1'], ['3'], ['5'], [{ begin: 6, end: 10 }]])
+    expect(prepare.template(/abc[1,2..4].def/)).toEqual([
+      ['abc', '1', 'def'],
+      ['abc', { begin: 2, end: 4 }, 'def']
+    ])
   })
 })
 
