@@ -3,25 +3,21 @@ const containsBraces = e => typeof e === 'string' && /\[.*\]/.test(e)
 const isSeries = e => typeof e === 'string' && /^-?\d+\.\.-?\d+$/.test(e)
 const isDotAddress = e => typeof e === 'string' && /[^\.]*\.[^.]*/.test(e) && !/\.\./.test(e)
 
-// const interpreter = [
-//   { test: containsBraces, consequent: handleBraces },
-//   { test: isSeries, consequent: handleSeries },
-//   { test: isDotAddress, consequent: handleDots },
-// ]
-
 const expandTemplate = address => {
 
-  const x = address.findIndex(containsBraces)
-  const y = address.findIndex(isSeries)
-  const z = address.findIndex(isDotAddress)
+  for (let i = 0; i < address.length; i++) {
 
-  return (x !== -1)
-    ? handleBraces(address, x)
-    : (y !== -1)
-    ? handleSeries(address, y)
-    : (z !== -1)
-    ? handleDots(address, z)
-    : address
+    const element = address[i]
+
+    if (containsBraces(element))
+      return handleBraces(address, i)
+    else if (isSeries(element))
+      return handleSeries(address, i)
+    else if (isDotAddress(element))
+      return handleDots(address, i)
+  }
+
+  return address
 }
 
 const notEmpty = v => typeof v !== 'string' || v.length
@@ -31,6 +27,7 @@ const insertPermutation = (address, index) =>
     .slice(0, index)
     .concat(replacement)
     .concat(address.slice(index + 1))
+    .filter(notEmpty)
 
 const handleBraces = (address, i) => {
   return nextBrackets(address[i])
@@ -47,21 +44,6 @@ const trim = (str, char) => str.slice(
   [...str].findIndex(c => c !== char),
   str.length - [...str].reverse().findIndex(c => c !== char)
 )
-
-const insert = (pre, suf) =>
-  v => {
-    const a = []
-
-    if (notEmpty(pre))
-      a.push(pre)
-
-    a.push(v)
-
-    if (notEmpty(suf))
-      a.push(suf)
-
-    return a
-  }
 
 const nextBrackets = template => {
 
@@ -83,9 +65,8 @@ const nextBrackets = template => {
 
   return commas
     .map(toPermutations(template.slice(start + 1, end - 1)))
-    .map(insert(pre, suf))
+    .map(insertPermutation([pre, null, suf], 1))
 }
-
 
 const expandSeries = address => {
 
