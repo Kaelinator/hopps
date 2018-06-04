@@ -2,18 +2,18 @@ const sanitize = require('./sanitize')
 const get = require('./get')(false)
 
 const put = (throwErrors) =>
-  (template, data, value) => {
+  (address, data, value) => {
 
-    template = sanitize.template(template, throwErrors)
+    address = sanitize.template(address, throwErrors)
     data = sanitize.data(data, throwErrors)
 
     if (!value && throwErrors)
       throw new TypeError('value must be specified, recieved ' + value + '.')
 
-    if (template.length === 0)
+    if (address.length === 0)
       return data
 
-    return template.reduceRight((obj, key, i, arr) => throwErrors
+    return address.reduceRight((obj, key, i, arr) => throwErrors
       ? strictlyPut(data, obj, key, i, arr)
       : Object.assign({ [key]: obj }, get(arr.slice(0, i), data) || {}), value)
     }

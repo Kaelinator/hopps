@@ -1,7 +1,7 @@
 const sanitize = require('./sanitize')
 
 const get = (throwErrors) =>
-  (template, data) => sanitize.template(template, throwErrors)
+  (address, data) => sanitize.template(address, throwErrors)
     .reduce((obj, key, i, arr) => throwErrors
       ? strictlyGet(obj, key, i, arr)
       : obj && obj[key] || undefined, data)
