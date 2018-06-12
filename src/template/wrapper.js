@@ -13,14 +13,24 @@ const getWrapper = template => {
   const getIt = get(shouldThrow)
 
   return data => addresses
-    .map(extrapolateSeriesObjects(data))
+    .reduce(extrapolateSeriesObjects(data), [])
     .map(address => getIt(address, data))
 }
 
 const extrapolateSeriesObjects = ({ length }) =>
-  address => address.reduce((arr, element) => arr.concat((typeof element === 'string')
-    ? element
-    : series(element, length)), [])
+  (arr, address) => {
+    const i = address.findIndex(e => typeof e === 'object')
+
+    return arr.concat((i === -1)
+      ? [ address ]
+      : series(address[i], length).map(insertPermutation(address, i)))
+  }
+
+const insertPermutation = (address, index) =>
+  replacement => address
+    .slice(0, index)
+    .concat(replacement)
+    .concat(address.slice(index + 1))
 
 module.exports = {
   get: getWrapper
